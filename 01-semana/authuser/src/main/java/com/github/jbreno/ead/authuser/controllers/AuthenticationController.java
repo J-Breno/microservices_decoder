@@ -1,5 +1,6 @@
 package com.github.jbreno.ead.authuser.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.jbreno.ead.authuser.dto.UserDto;
 import com.github.jbreno.ead.authuser.enums.UserStatus;
 import com.github.jbreno.ead.authuser.enums.UserType;
@@ -23,7 +24,10 @@ public class AuthenticationController {
     private UserService userService;
 
     @PutMapping("/singup")
-    public ResponseEntity<Object> registerUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<Object> registerUser(
+            @RequestBody
+            @JsonView(UserDto.UserView.RegistrationPost.class)
+            UserDto userDto) {
         if(userService.existsByUsername(userDto.getUsername())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
         }

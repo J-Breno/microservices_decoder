@@ -143,3 +143,5 @@ api é uma aplicação que serve para comunicar serviços
 
 Rest é o modelo arquitetural, conjunto de padrões que trazem boas praticas para o desenvolvimento dessas api
 rest full é a implementação do rest;
+
+@JsonView vai servir tipo um DTO, voc~e implementar um interface e diz onde somente tal coisa pode ser usada/alterada etc
