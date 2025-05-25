@@ -136,3 +136,10 @@ Injeção de Dependência é a implementação utilizada pelo Spring Framework d
 Bean consiste em um objeto que é instanciado, montado e gerenciado por um container do Spring através de Inversão de Controle (IoC) e Injeção de Dependência.
 
 Spring boot é a junção do spring framework + servidor embutido(tomcat) - xml
+
+## API REST vs API RESTFuL
+
+api é uma aplicação que serve para comunicar serviços
+
+Rest é o modelo arquitetural, conjunto de padrões que trazem boas praticas para o desenvolvimento dessas api
+rest full é a implementação do rest;
