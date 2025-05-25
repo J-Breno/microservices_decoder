@@ -124,3 +124,15 @@ Tipos de exchange:
 - Prefira **mensageria (RabbitMQ, Kafka)** quando puder usar **comunicação assíncrona**.
 - Microservices devem ser **independentes**, mas devem **cooperar** entre si.
 - Utilize **observabilidade** (monitoramento, logs, tracing) para entender o que acontece entre os serviços.
+
+## Ecosistema Spring
+
+Spring framework é a base para todo projeto spring
+
+Inversão de controle é um padrão de projeto, em que um objeto apenas declara suas dependências sem cria-las e delega a tarefa de construir tais dependências a um Container Ioc(Core Container);
+
+Injeção de Dependência é a implementação utilizada pelo Spring Framework de aplicar a inversão de controle quando necessário.
+
+Bean consiste em um objeto que é instanciado, montado e gerenciado por um container do Spring através de Inversão de Controle (IoC) e Injeção de Dependência.
+
+Spring boot é a junção do spring framework + servidor embutido(tomcat) - xml
