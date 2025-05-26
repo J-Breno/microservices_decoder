@@ -1,6 +1,5 @@
 package com.github.jbreno.ead.course.controllers;
 
-import com.github.jbreno.ead.course.dtos.CourseDto;
 import com.github.jbreno.ead.course.dtos.ModuleDto;
 import com.github.jbreno.ead.course.models.CourseModel;
 import com.github.jbreno.ead.course.models.ModuleModel;
