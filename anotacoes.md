@@ -145,3 +145,4 @@ Rest é o modelo arquitetural, conjunto de padrões que trazem boas praticas par
 rest full é a implementação do rest;
 
 @JsonView vai servir tipo um DTO, voc~e implementar um interface e diz onde somente tal coisa pode ser usada/alterada etc
+    
