@@ -18,7 +18,7 @@ spring:
   output:
     ansi:
       enabled: Always
-      
+
 logging:
   level:
     com.github.jbreno.ead: TRACE
