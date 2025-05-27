@@ -6,6 +6,8 @@ import com.github.jbreno.ead.authuser.enums.UserStatus;
 import com.github.jbreno.ead.authuser.enums.UserType;
 import com.github.jbreno.ead.authuser.models.UserModel;
 import com.github.jbreno.ead.authuser.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.time.ZoneId;
 @RequestMapping(path = "/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthenticationController {
+
+    private Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private UserService userService;
@@ -45,5 +49,15 @@ public class AuthenticationController {
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
         userService.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userModel);
+    }
+
+    @GetMapping("/")
+    public  String index() {
+        logger.trace("TRACE");
+        logger.debug("DEBUG");
+        logger.info("INFO");
+        logger.warn("WARN");
+        logger.error("ERROR");
+        return "Loggin spring boot...";
     }
 }
