@@ -145,4 +145,10 @@ Rest é o modelo arquitetural, conjunto de padrões que trazem boas praticas par
 rest full é a implementação do rest;
 
 @JsonView vai servir tipo um DTO, voc~e implementar um interface e diz onde somente tal coisa pode ser usada/alterada etc
-    
+
+API Composition Pattern é uma implementação de consultas que recuperam dados de vários Microservices, consultando cada um deles através de suas respectivas APIs, combinado esses resultados.
+
+O API Composition Pattern (ou padrão de composição de APIs) é um padrão arquitetural em sistemas de microservices que busca resolver o seguinte problema:
+
+Como obter dados que estão distribuídos entre vários microserviços de forma agregada, como se fosse uma única resposta coesa para o cliente
+
