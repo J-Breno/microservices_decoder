@@ -11,4 +11,3 @@ public class CourseUserServiceImpl implements CourseUserService {
     @Autowired
     private CourseService courseService;
 }
-    
