@@ -64,4 +64,8 @@ public class CourseModel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private Set<CourseUserModel> coursesUsers;
+
+    public CourseUserModel convertToUserModel(UUID userId) {
+        return new CourseUserModel(null, this, userId);
+    }
 }
