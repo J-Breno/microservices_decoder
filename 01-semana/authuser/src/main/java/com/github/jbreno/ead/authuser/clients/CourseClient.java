@@ -5,6 +5,7 @@ import com.github.jbreno.ead.authuser.dto.ResponsePageDto;
 import com.github.jbreno.ead.authuser.services.UtilsService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,19 +21,21 @@ import java.util.UUID;
 
 @Log4j2
 @Component
-public class UserClient     {
+public class CourseClient {
 
     @Autowired
     private RestTemplate restTemplate;
 
 
+    @Autowired
     UtilsService utilsService;
 
-    String REQUEST_URI = "http://localhost:8082";
+    @Value("${ead.api.url.authuser}")
+    String REQUEST_URL_COURSE;
 
     public Page<CourseDto> getAllCourseByUser(UUID userId, Pageable pageable) {
         List<CourseDto> searchResult = null;
-        String url = utilsService.createUrl(userId, pageable);
+        String url = REQUEST_URL_COURSE + utilsService.createUrlGetAllUsersByCourse(userId, pageable);
         log.debug("RequestURL: {}", url);
         log.debug("RequestURL: {}", url);
         try {
