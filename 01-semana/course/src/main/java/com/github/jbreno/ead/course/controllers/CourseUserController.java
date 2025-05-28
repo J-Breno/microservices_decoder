@@ -1,15 +1,15 @@
 package com.github.jbreno.ead.course.controllers;
 
-import com.github.jbreno.ead.course.clients.CourseClient;
+import com.github.jbreno.ead.course.clients.AuthUserClient;
 import com.github.jbreno.ead.course.dtos.SubscriptionDto;
 import com.github.jbreno.ead.course.dtos.UserDto;
+import com.github.jbreno.ead.course.enums.UserStatus;
 import com.github.jbreno.ead.course.models.CourseModel;
 import com.github.jbreno.ead.course.models.CourseUserModel;
 import com.github.jbreno.ead.course.services.CourseService;
 import com.github.jbreno.ead.course.services.CourseUserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,9 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.validation.Valid;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +29,7 @@ import java.util.UUID;
 public class CourseUserController {
 
     @Autowired
-    private CourseClient courseClient;
+    private AuthUserClient authUserClient;
 
     @Autowired
     private CourseService courseService;
@@ -42,7 +42,7 @@ public class CourseUserController {
             @PageableDefault(page = 0, size = 10, sort = "userId", direction = Sort.Direction.ASC)
             Pageable pageable,
             @PathVariable("courseId") UUID courseId) {
-        return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllUsersByCourse(courseId, pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(authUserClient.getAllUsersByCourse(courseId, pageable));
     }
 
     @PostMapping("/courses/{courseId}/users/subscription")
@@ -50,14 +50,29 @@ public class CourseUserController {
             @PathVariable("courseId") UUID courseId,
             @RequestBody @Valid SubscriptionDto subscriptionDto
     ) {
+        ResponseEntity<UserDto> responseUser;
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
+
         if(!courseModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }
+
         if(courseUserService.existsByCourseAndUserId(courseModelOptional.get(), subscriptionDto.getUserId())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erros: Subscription already exists");
         }
+
+        try {
+            responseUser = authUserClient.getOneUserById(subscriptionDto.getUserId());
+            if(responseUser.getBody().equals(UserStatus.BLOCKED)) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("User is blocked");
+            }
+        } catch (HttpStatusCodeException e) {
+            if(e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        }
+
         CourseUserModel courseUserModel = courseUserService.save(courseModelOptional.get().convertToUserModel(subscriptionDto.getUserId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body("Subscription created successfully.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseUserModel);
     }
 }
