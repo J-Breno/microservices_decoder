@@ -1,5 +1,6 @@
 package com.github.jbreno.ead.course.clients;
 
+import com.github.jbreno.ead.course.dtos.CourseUserDto;
 import com.github.jbreno.ead.course.dtos.ResponsePageDto;
 import com.github.jbreno.ead.course.dtos.UserDto;
 import com.github.jbreno.ead.course.services.UtilService;
@@ -52,5 +53,13 @@ public class AuthUserClient {
     public ResponseEntity<UserDto> getOneUserById(UUID userId){
         String url = REQUEST_URL_AUTHUSER + "/users/" + userId;
         return restTemplate.exchange(url, HttpMethod.GET, null, UserDto.class);
+    }
+
+    public void postSubscriptionUserInCourse(UUID courseId, UUID userId) {
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId + "/courses/subscription";
+        var courseUserDto = new CourseUserDto();
+        courseUserDto.setCourseId(courseId);
+        courseUserDto.setUserId(userId);
+        restTemplate.postForObject(url, courseUserDto, String.class);
     }
 }
