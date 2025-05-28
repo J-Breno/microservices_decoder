@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,8 +25,8 @@ public class UserClient     {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private UtilsService utilsService;
+
+    UtilsService utilsService;
 
     String REQUEST_URI = "http://localhost:8082";
 

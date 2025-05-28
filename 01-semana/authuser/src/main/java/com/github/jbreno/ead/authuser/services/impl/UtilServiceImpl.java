@@ -1,12 +1,13 @@
 package com.github.jbreno.ead.authuser.services.impl;
 
+import com.github.jbreno.ead.authuser.services.UtilsService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-public class UtilServiceImpl {
+public class UtilServiceImpl implements UtilsService {
 
     String REQUEST_URI = "http://localhost:8082";
 

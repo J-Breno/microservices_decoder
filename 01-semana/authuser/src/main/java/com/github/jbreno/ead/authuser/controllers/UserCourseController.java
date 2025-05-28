@@ -1,9 +1,8 @@
-package com.github.jbreno.ead.authuser.models;
+package com.github.jbreno.ead.authuser.controllers;
 
 import com.github.jbreno.ead.authuser.clients.UserClient;
 import com.github.jbreno.ead.authuser.dto.CourseDto;
 import com.github.jbreno.ead.authuser.services.UserCourseService;
-import com.github.jbreno.ead.authuser.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
