@@ -152,3 +152,7 @@ O API Composition Pattern (ou padrão de composição de APIs) é um padrão arq
 
 Como obter dados que estão distribuídos entre vários microserviços de forma agregada, como se fosse uma única resposta coesa para o cliente
 
+Fluxos sícronos:
+![alt text](image-1.png)
+
+![alt text](image.png)
